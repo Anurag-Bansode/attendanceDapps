@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Register to Mark Attendance</h2>
+
+<input id="name" placeholder="Name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+
+<button onclick="submit()">Register</button>
+<pre id="out"></pre>
+
+<script>
+async function submit() {
+  const res = await fetch("/identity/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+   body: JSON.stringify({
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value
+  })
+  });
+
+  const data = await res.json();
+  out.textContent = JSON.stringify(data, null, 2);
+
+  if (data.success) {
+    window.location.reload(); // reload → captcha page
+  }
+}
+</script>
+</body>
+</html>

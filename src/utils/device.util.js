@@ -1,17 +1,17 @@
-const crypto = require("crypto");
+const { v4: uuidv4 } = require("uuid");
 
-function getDeviceId(req) {
-  const ua = req.headers["user-agent"] || "";
-  const lang = req.headers["accept-language"] || "";
-  const ip =
-    (req.headers["x-forwarded-for"] || req.socket.remoteAddress || "")
-      .split(",")[0]
-      .trim();
+function getDeviceId(req, res) {
+  let deviceId = req.cookies.device_id;
 
-  return crypto
-    .createHash("sha256")
-    .update(`${ua}|${lang}|${ip}`)
-    .digest("hex");
+  if (!deviceId) {
+    deviceId = uuidv4();
+    res.cookie("device_id", deviceId, {
+      httpOnly: true,
+      sameSite: "Lax"
+    });
+  }
+
+  return deviceId;
 }
 
 module.exports = { getDeviceId };

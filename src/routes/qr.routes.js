@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
         <img src="${qrImage}" />
         <p>QR auto-refreshes</p>
         <script>
-          setTimeout(() => location.reload(), 10000);
+          setTimeout(() => location.reload(), 20000);
         </script>
       </body>
     </html>
