@@ -13,46 +13,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     sessionDiv.textContent = `Session: ${sessionId}`;
   }
 
-
-
-  if (!window.PublicKeyCredential) {
-    errorEl.textContent = "WebAuthn not supported on this device";
-    submitBtn.disabled = true;
-    return;
-  }
-
-  try {
-    // Begin authentication
-    const options = await fetch("/webauthn/auth/begin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" }
-    }).then(r => r.json());
-
-    // Ask authenticator to sign challenge
-    const assertion = await navigator.credentials.get({
-      publicKey: options
-    });
-
-    // Finish authentication
-    const finishRes = await fetch("/webauthn/auth/finish", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(assertion)
-    });
-
-    if (!finishRes.ok) {
-      throw new Error("WebAuthn authentication failed");
-    }
-
-  } catch (err) {
-    console.error(err);
-    errorEl.textContent =
-      "Security verification failed. Please try again.";
-    submitBtn.disabled = true;
-    return;
-  }
-
-
+  // No WebAuthn verification needed anymore.
+  // Instead, we will get the deviceId using FingerprintJS
 
   const a = Math.floor(Math.random() * 10);
   const b = Math.floor(Math.random() * 10);
@@ -67,19 +29,25 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    const res = await fetch("/scan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nonce })
-    });
+    try {
+      const res = await fetch("/scan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nonce }) 
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (!res.ok) {
-      errorEl.textContent = data.error || "Scan failed";
-      return;
+      if (!res.ok) {
+        errorEl.textContent = data.error || "Scan failed";
+        return;
+      }
+
+      window.location.href = "/success.html";
+    } catch (e) {
+      console.error(e);
+      errorEl.textContent =
+        "Verification failed. Please try again.";
     }
-
-    window.location.href = "/success.html";
   });
 });

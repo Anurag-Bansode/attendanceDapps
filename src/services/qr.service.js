@@ -1,7 +1,7 @@
 import QRCode from "qrcode";
 import crypto from "crypto";
 import nonceStore from "../stores/nonce.store.js";
-import { BASE_URL, QR_TTL_SECONDS } from "../config.js";
+import { ORIGIN, QR_TTL_SECONDS } from "../config.js";
 import { logger } from "../utils/logger.js";
 
 export async function generateQR(sessionId) {
@@ -15,6 +15,6 @@ export async function generateQR(sessionId) {
 
   logger.info("QR issued", { sessionId, nonce });
 
-  const url = `${BASE_URL}/checkin?nonce=${nonce}`;
+  const url = `${ORIGIN}/checkin?nonce=${nonce}`;
   return QRCode.toDataURL(url);
 }

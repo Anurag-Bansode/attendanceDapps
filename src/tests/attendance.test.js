@@ -1,8 +1,12 @@
 import { api } from "./helpers/setup.js";
 import { readCSV, clearLogs } from "./helpers/csv.utils.js";
+import nonceStore from "../stores/nonce.store.js";
+import identityStore from "../stores/identity.store.js";
 
 beforeEach(() => {
   clearLogs();
+  nonceStore.clear();
+  identityStore.clear();
 });
 
 test("records attendance after captcha success", async () => {
@@ -14,15 +18,25 @@ test("records attendance after captcha success", async () => {
     duration_minutes: 10
   });
 
-  // Fake nonce injection (test-only shortcut)
+  // Step 1: Register a device to get a device_id cookie and create an identity
+  const registerRes = await api
+    .post("/identity/register")
+    .send({ name: "Test User", email: "test@example.com" });
+
+  expect(registerRes.statusCode).toBe(200);
+  const cookie = registerRes.headers['set-cookie']; // Grab the cookie
+
+  // Step 2: Fake nonce injection (test-only shortcut)
   const nonce = "test-nonce";
-  global.nonceStore.set(nonce, {
+  nonceStore.set(nonce, {
     sessionId: "WS-D1-S1",
     expiresAt: Date.now() + 10000
   });
 
-  // Scan
-  const res = await api.post("/scan").send({ nonce });
+  // Step 3: Scan with the device_id cookie
+  const res = await api.post("/scan")
+    .set('Cookie', cookie) // Use the cookie from registration
+    .send({ nonce });
   expect(res.statusCode).toBe(200);
 
   const attendance = readCSV("attendance.csv");

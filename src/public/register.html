@@ -13,12 +13,13 @@
 
     <div id="session"></div>
     <div id="error" class="error"></div>
+    <div id="countdown" class="info" style="font-weight: bold; color: #ff6347;"></div>
 
     <label for="name">Full Name</label>
-    <input id="name" placeholder="John Doe">
+    <input id="name" type="text" placeholder="John Doe" autocomplete="name">
 
     <label for="email">Email Address</label>
-    <input id="email" placeholder="e.g. name@example.com">
+    <input id="email" type="email" placeholder="e.g. name@example.com" autocomplete="email" autocapitalize="none" inputmode="email">
 
     <button id="btn" onclick="register()">Register</button>
 

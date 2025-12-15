@@ -1,20 +1,29 @@
 import express from "express";
 import cookieParser from "cookie-parser";
-import { PORT } from "./config.js";
+import session from "express-session"; 
+import { PORT, SESSION_SECRET, ENV } from "./config.js"; 
+import { logger } from "./utils/logger.js"; 
 
 import checkinRoutes from "./routes/checkin.routes.js";
 import scanRoutes from "./routes/scan.routes.js";
 import identityRoutes from "./routes/identity.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import qrRoutes from "./routes/qr.routes.js";
-import healthcheck from "./routes/healthcheck.routes.js";
-
+import healthcheck from "./routes/healthcheck.routes.js"; 
 
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(
+  session({ 
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === "production" } 
+  })
+);
 
 app.use(express.static("src/public"));
 
@@ -25,8 +34,36 @@ app.use("/admin", adminRoutes);
 app.use("/qr",qrRoutes);
 app.use("/health",healthcheck);
 
+// Global error handling middleware
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
 
-app.listen(PORT, () => {
+  // Log the error
+  logger.error(err.message, { 
+    statusCode: err.statusCode, 
+    status: err.status, 
+    stack: err.stack 
+  });
+
+  const errorResponse = {
+    status: err.status,
+    error: err.message,
+  };
+
+  // In development, send the stack trace for easier debugging
+  if (ENV !== 'production') {
+    errorResponse.stack = err.stack;
+  }
+
+  // Send response to the client
+  res.status(err.statusCode).json(errorResponse);
 });
 
-//export default app;
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+      logger.info(`Server is running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode.`);
+  });
+}
+
+export default app;

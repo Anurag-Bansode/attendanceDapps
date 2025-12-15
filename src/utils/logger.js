@@ -1,29 +1,60 @@
-import fs from "fs";
-import path from "path";
-import { ENABLE_LOGS, LOG_DIR } from "../config.js";
+import winston from 'winston';
+import path from 'path';
+import { LOG_DIR, ENV, ENABLE_LOGS } from '../config.js';
 
-if (ENABLE_LOGS && !fs.existsSync(LOG_DIR)) {
-  fs.mkdirSync(LOG_DIR);
-}
+const { createLogger, format, transports } = winston;
+const { combine, timestamp, printf, colorize, json, errors } = format;
 
-function write(type, message, meta = {}) {
-  if (!ENABLE_LOGS) return;
+// Custom format for logging to the console and files
+const logFormat = printf(({ level, message, timestamp, ...metadata }) => {
+  let msg = `${timestamp} [${level}] : ${message} `;
+  
+  // Only stringify if there's metadata to avoid empty {}
+  if (metadata && Object.keys(metadata).length) {
+    // The 'stack' property from an error will be captured by the `errors` format
+    if (metadata.stack) {
+      msg += `\n${metadata.stack}`;
+    } else {
+      msg += JSON.stringify(metadata);
+    }
+  }
+  return msg;
+});
 
-  const entry = {
-    time: new Date().toISOString(),
-    level: type,
-    message,
-    ...meta
-  };
+const loggerTransports = [];
 
-  fs.appendFileSync(
-    path.join(LOG_DIR, "attendance.log"),
-    JSON.stringify(entry) + "\n"
+// In development, we log to the console with colors for readability.
+if (ENV !== 'production') {
+  loggerTransports.push(
+    new transports.Console({
+      format: combine(
+        colorize(),
+        timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        logFormat
+      ),
+    })
   );
 }
 
-export const logger = {
-  info: (msg, meta) => write("INFO", msg, meta),
-  warn: (msg, meta) => write("WARN", msg, meta),
-  error: (msg, meta) => write("ERROR", msg, meta)
-};
+// For file logging, we use a more structured format.
+// This is asynchronous and won't block the event loop.
+if (ENABLE_LOGS === 'true') {
+  loggerTransports.push(
+    new transports.File({
+      filename: path.join(LOG_DIR, 'error.log'),
+      level: 'error',
+      format: combine(timestamp(), json(), errors({ stack: true })),
+    }),
+    new transports.File({
+      filename: path.join(LOG_DIR, 'combined.log'),
+      format: combine(timestamp(), json(), errors({ stack: true })),
+    })
+  );
+}
+
+export const logger = createLogger({
+  level: 'info', // Log 'info' and above ('warn', 'error')
+  format: combine(errors({ stack: true })),
+  transports: loggerTransports,
+  exitOnError: false, // Do not exit on handled exceptions
+});

@@ -1,4 +1,4 @@
+import supertest from "supertest";
+import app from "../../app.js";
 
-import request from "supertest";
-import { app } from "../../app.js"; 
-export const api = request(app);
+export const api = supertest(app);
