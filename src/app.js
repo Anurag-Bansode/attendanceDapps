@@ -51,12 +51,10 @@ app.use((err, req, res, next) => {
     error: err.message,
   };
 
-  // In development, send the stack trace for easier debugging
   if (ENV !== 'production') {
     errorResponse.stack = err.stack;
   }
 
-  // Send response to the client
   res.status(err.statusCode).json(errorResponse);
 });
 

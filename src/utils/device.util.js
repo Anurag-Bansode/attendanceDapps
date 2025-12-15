@@ -10,7 +10,7 @@ export function getDeviceId(req, res) {
       maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "Lax" // Changed from "Strict" to "Lax" for better compatibility with cross-site navigations (e.g., from QR code readers)
+      sameSite: "Lax" 
     });
   }
 

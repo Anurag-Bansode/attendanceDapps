@@ -30,18 +30,30 @@
                 </div>
                 <button type="submit">Create Session</button>
             </form>
-            <div id="result" class="result-container" style="display: none;"></div>
+            <div id="session-result-container" class="result-container hidden"></div>
         </div>
 
-        <div class="card">
+        <div id="log-management-card" class="card hidden">
             <h2>Attendance Log</h2>
             <div class="button-group">
                 <button id="view-log-btn">View Log</button>
                 <button id="download-csv-btn">Download CSV</button>
             </div>
-            <div id="log-container" class="log-display" style="display: none;"></div>
+            <div id="log-container" class="log-display hidden"></div>
         </div>
     </div>
+
+    <!-- Templates for dynamic content -->
+    <template id="session-success-template">
+        <h4>Session Created Successfully!</h4>
+        <p>QR Code Page URL:</p>
+        <a href="#" target="_blank" class="qr-url-link"></a>
+    </template>
+
+    <template id="error-message-template">
+        <p class="error-text"></p>
+    </template>
+
     <script src="/js/admin.js"></script>
 </body>
 </html>

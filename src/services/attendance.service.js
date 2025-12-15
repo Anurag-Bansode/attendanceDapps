@@ -34,7 +34,7 @@ export function summary() {
 
 export function getFullLog() {
   const log = {};
-  // The attendance store is a Map, so we convert it to a plain object for JSON serialization.
+  
   for (const [sessionId, records] of attendance.entries()) {
     log[sessionId] = records;
   }

@@ -11,7 +11,7 @@ const logFormat = printf(({ level, message, timestamp, ...metadata }) => {
   
   // Only stringify if there's metadata to avoid empty {}
   if (metadata && Object.keys(metadata).length) {
-    // The 'stack' property from an error will be captured by the `errors` format
+
     if (metadata.stack) {
       msg += `\n${metadata.stack}`;
     } else {
@@ -53,8 +53,8 @@ if (ENABLE_LOGS === 'true') {
 }
 
 export const logger = createLogger({
-  level: 'info', // Log 'info' and above ('warn', 'error')
+  level: 'info', 
   format: combine(errors({ stack: true })),
   transports: loggerTransports,
-  exitOnError: false, // Do not exit on handled exceptions
+  exitOnError: false,
 });

@@ -1,11 +1,11 @@
 import crypto from "crypto";
 import identityStore from "../stores/identity.store.js";
-import { logger } from "../utils/logger.js"; // Added this line
+import { logger } from "../utils/logger.js"; 
 
 export function registerIdentity(deviceId, name, email) {
-  logger.info("Attempting to register identity", { deviceId, name, email }); // Added this log
+  logger.info("Attempting to register identity", { deviceId, name, email }); 
   if (identityStore.has(deviceId)) {
-    logger.warn("Identity registration failed: Device already registered", { deviceId }); // Added this log
+    logger.warn("Identity registration failed: Device already registered", { deviceId }); 
     throw new Error("Device already registered");
   }
 
@@ -19,16 +19,16 @@ export function registerIdentity(deviceId, name, email) {
     emailHash,
     createdAt: Date.now()
   });
-  logger.info("Identity registered successfully", { deviceId, name, emailHash }); // Added this log
+  logger.info("Identity registered successfully", { deviceId, name, emailHash }); 
 }
 
 export function getIdentity(deviceId) {
-  logger.info("Attempting to retrieve identity", { deviceId }); // Added this log
+  logger.info("Attempting to retrieve identity", { deviceId }); 
   const identity = identityStore.get(deviceId);
   if (identity) {
-    logger.info("Identity retrieved successfully", { deviceId, emailHash: identity.emailHash }); // Added this log
+    logger.info("Identity retrieved successfully", { deviceId, emailHash: identity.emailHash }); 
   } else {
-    logger.info("Identity not found for device", { deviceId }); // Added this log
+    logger.info("Identity not found for device", { deviceId }); 
   }
   return identity;
 }

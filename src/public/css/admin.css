@@ -87,3 +87,7 @@ button:hover {
 .button-group button {
     flex: 1;
 }
+
+.hidden {
+    display: none;
+}
