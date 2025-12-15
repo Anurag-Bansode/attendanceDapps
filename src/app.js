@@ -10,7 +10,6 @@ import qrRoutes from "./routes/qr.routes.js";
 import healthcheck from "./routes/healthcheck.routes.js";
 
 
-
 const app = express();
 
 app.use(express.json());
@@ -28,9 +27,6 @@ app.use("/health",healthcheck);
 
 
 app.listen(PORT, () => {
-  alert(process.env.PORT)
-  alert(process.env.RP_NAME)
-  alert(process.env.RP_ID)
 });
 
 //export default app;
