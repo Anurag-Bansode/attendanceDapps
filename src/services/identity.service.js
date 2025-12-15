@@ -9,26 +9,30 @@ export function registerIdentity(deviceId, name, email) {
     throw new Error("Device already registered");
   }
 
-  const emailHash = crypto
-    .createHash("sha256")
-    .update(email.toLowerCase())
-    .digest("hex");
-
   identityStore.set(deviceId, {
     name,
-    emailHash,
+    email: email.toLowerCase(),
     createdAt: Date.now()
   });
-  logger.info("Identity registered successfully", { deviceId, name, emailHash }); 
+  logger.info("Identity registered successfully", { deviceId, name }); 
 }
 
 export function getIdentity(deviceId) {
   logger.info("Attempting to retrieve identity", { deviceId }); 
   const identity = identityStore.get(deviceId);
   if (identity) {
-    logger.info("Identity retrieved successfully", { deviceId, emailHash: identity.emailHash }); 
+    logger.info("Identity retrieved successfully", { deviceId }); 
   } else {
     logger.info("Identity not found for device", { deviceId }); 
   }
   return identity;
+}
+
+export function getAllIdentities() {
+  logger.info("Retrieving all identities");
+  const all = {};
+  for (const [deviceId, identity] of identityStore.entries()) {
+    all[deviceId] = identity;
+  }
+  return all;
 }

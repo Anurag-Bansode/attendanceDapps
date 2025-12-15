@@ -1,5 +1,3 @@
-export const scanLimitStore = new Map();
-/*
-Key: sessionId
-Value: Map<deviceId, count>
-*/
+import { PersistentStore } from "../utils/PersistentStore.js";
+export const scanLimitStore = new PersistentStore("scanlimits.json");
+

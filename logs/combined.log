@@ -294,3 +294,269 @@
 {"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"67444b6a-c369-4025-877a-5b8655379091","timestamp":"2025-12-15T17:00:10.321Z"}
 {"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Rate limit exceeded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:00:10.321Z"}
 {"level":"error","message":"Too many scan attempts","stack":"Error: Too many scan attempts\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:35:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":429,"timestamp":"2025-12-15T17:00:10.322Z"}
+{"level":"info","message":"Server is running on port 3000 in Devel mode.","timestamp":"2025-12-15T17:27:25.427Z"}
+{"level":"info","message":"Request received for attendance log","timestamp":"2025-12-15T17:28:15.698Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"1","timestamp":"2025-12-15T17:28:23.615Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:28:23.616Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:28:23.616Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:28:23.616Z"}
+{"level":"info","message":"Request received for attendance summary CSV download","timestamp":"2025-12-15T17:28:34.151Z"}
+{"level":"info","message":"Retrieving all identities","timestamp":"2025-12-15T17:28:34.152Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"1","timestamp":"2025-12-15T17:28:45.277Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:28:45.277Z"}
+{"level":"warn","message":"Session creation failed: Session already exists","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:28:45.278Z"}
+{"level":"error","message":"Session already exists","stack":"Error: Session already exists\n    at createSession (file:///D:/Attendance/attendance/src/services/session.service.js:10:11)\n    at file:///D:/Attendance/attendance/src/routes/admin.routes.js:17:3\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)","status":"error","statusCode":500,"timestamp":"2025-12-15T17:28:45.278Z"}
+{"level":"info","message":"Server is running on port 3000 in Devel mode.","timestamp":"2025-12-15T17:29:19.380Z"}
+{"level":"info","message":"Request received for attendance log","timestamp":"2025-12-15T17:29:29.793Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"1","timestamp":"2025-12-15T17:29:36.334Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:36.335Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:36.335Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:36.336Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:29:38.519Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:38.520Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:29:38.520Z"}
+{"level":"info","message":"QR issued","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:38.520Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:38.545Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:29:54.466Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:29:54.466Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device","timestamp":"2025-12-15T17:29:54.467Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device, redirecting to registration","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:29:54.467Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Received registration request","name":"Anurag Bansode","timestamp":"2025-12-15T17:30:00.009Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Attempting to register identity","name":"Anurag Bansode","timestamp":"2025-12-15T17:30:00.010Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity registered successfully","name":"Anurag Bansode","timestamp":"2025-12-15T17:30:00.010Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Identity registered successfully","name":"Anurag Bansode","timestamp":"2025-12-15T17:30:00.010Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:00.063Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:30:00.064Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:30:00.064Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:00.064Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:04.259Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:30:04.259Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:30:04.260Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attendance recorded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:04.261Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:13.431Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:30:13.431Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:30:13.432Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:13.432Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:16.704Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:30:16.704Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:30:16.704Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Duplicate attendance attempt blocked","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:16.705Z"}
+{"level":"error","message":"Attendance already recorded for this device","stack":"Error: Attendance already recorded for this device\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:45:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":409,"timestamp":"2025-12-15T17:30:16.706Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:18.380Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Rate limit exceeded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:18.380Z"}
+{"level":"error","message":"Too many scan attempts","stack":"Error: Too many scan attempts\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:35:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":429,"timestamp":"2025-12-15T17:30:18.382Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:25.561Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:30:25.561Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:30:25.561Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:25.562Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"dc621867-5862-4de5-82d2-621ac5c957c5","timestamp":"2025-12-15T17:30:29.819Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Rate limit exceeded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:30:29.819Z"}
+{"level":"error","message":"Too many scan attempts","stack":"Error: Too many scan attempts\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:35:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":429,"timestamp":"2025-12-15T17:30:29.820Z"}
+{"level":"info","message":"Request received for attendance log","timestamp":"2025-12-15T17:30:40.234Z"}
+{"level":"info","message":"Request received for attendance log CSV download","timestamp":"2025-12-15T17:30:42.651Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:30:42.652Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:30:42.652Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:31:20.102Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:31:20.102Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:31:20.103Z"}
+{"level":"info","message":"QR issued","nonce":"697421bd-c07a-4014-b483-b9bf3e7e6250","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:31:20.103Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:31:20.109Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:31:53.743Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:31:53.743Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:31:53.743Z"}
+{"level":"info","message":"QR issued","nonce":"43ea16ac-196c-4da7-98bc-2d07757420c7","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:31:53.744Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:31:53.749Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"43ea16ac-196c-4da7-98bc-2d07757420c7","timestamp":"2025-12-15T17:32:03.878Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:32:03.878Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:32:03.878Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:03.879Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"43ea16ac-196c-4da7-98bc-2d07757420c7","timestamp":"2025-12-15T17:32:12.456Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Rate limit exceeded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:12.456Z"}
+{"level":"error","message":"Too many scan attempts","stack":"Error: Too many scan attempts\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:35:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":429,"timestamp":"2025-12-15T17:32:12.458Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:32:23.788Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:23.788Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:32:23.788Z"}
+{"level":"info","message":"QR issued","nonce":"2c65faf8-54e0-4591-9bf7-840eaf42ec7c","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:23.789Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:23.794Z"}
+{"level":"info","message":"Server is running on port 3000 in Devel mode.","timestamp":"2025-12-15T17:32:52.626Z"}
+{"level":"info","message":"Request received for attendance log","timestamp":"2025-12-15T17:32:55.896Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"1","timestamp":"2025-12-15T17:32:57.995Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:57.996Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:57.996Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:57.996Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:32:59.838Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:59.838Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:32:59.838Z"}
+{"level":"info","message":"QR issued","nonce":"89e10cc3-2116-4a3f-b79b-16c8f3d0cf6a","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:59.839Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:32:59.865Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"89e10cc3-2116-4a3f-b79b-16c8f3d0cf6a","timestamp":"2025-12-15T17:33:13.872Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:33:13.872Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device","timestamp":"2025-12-15T17:33:13.873Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device, redirecting to registration","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:13.873Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Received registration request","name":"Anurag Bansode","timestamp":"2025-12-15T17:33:19.486Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Attempting to register identity","name":"Anurag Bansode","timestamp":"2025-12-15T17:33:19.487Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity registered successfully","name":"Anurag Bansode","timestamp":"2025-12-15T17:33:19.488Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Identity registered successfully","name":"Anurag Bansode","timestamp":"2025-12-15T17:33:19.489Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"89e10cc3-2116-4a3f-b79b-16c8f3d0cf6a","timestamp":"2025-12-15T17:33:19.524Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:33:19.524Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:33:19.525Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:19.525Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:33:30.180Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:30.180Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:33:30.180Z"}
+{"level":"info","message":"QR issued","nonce":"e61218db-c57b-4baf-a8ee-b18607c32a51","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:30.180Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:30.191Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"89e10cc3-2116-4a3f-b79b-16c8f3d0cf6a","timestamp":"2025-12-15T17:33:31.244Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:33:31.245Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:33:31.245Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attendance recorded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:31.246Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"e61218db-c57b-4baf-a8ee-b18607c32a51","timestamp":"2025-12-15T17:33:40.596Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:33:40.596Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:33:40.596Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:40.597Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"e61218db-c57b-4baf-a8ee-b18607c32a51","timestamp":"2025-12-15T17:33:43.447Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:33:43.448Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:33:43.448Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Duplicate attendance attempt blocked","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:33:43.449Z"}
+{"level":"error","message":"Attendance already recorded for this device","stack":"Error: Attendance already recorded for this device\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:45:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":409,"timestamp":"2025-12-15T17:33:43.451Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:34:00.423Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:34:00.423Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:34:00.424Z"}
+{"level":"info","message":"QR issued","nonce":"935f1c31-3f28-4a9a-8e9a-f22c865f1d19","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:34:00.424Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:34:00.433Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"e61218db-c57b-4baf-a8ee-b18607c32a51","timestamp":"2025-12-15T17:34:02.792Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Rate limit exceeded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:34:02.793Z"}
+{"level":"error","message":"Too many scan attempts","stack":"Error: Too many scan attempts\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:35:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":429,"timestamp":"2025-12-15T17:34:02.794Z"}
+{"level":"info","message":"Server is running on port 3000 in Devel mode.","timestamp":"2025-12-15T17:37:33.762Z"}
+{"level":"info","message":"Request received for attendance log","timestamp":"2025-12-15T17:37:46.960Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"1","timestamp":"2025-12-15T17:37:52.841Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:37:52.841Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:37:52.842Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:37:52.842Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:37:55.174Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:37:55.175Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:37:55.175Z"}
+{"level":"info","message":"QR issued","nonce":"ab98c5e6-152b-453e-becf-27f51c8fcf8e","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:37:55.176Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:37:55.202Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"ab98c5e6-152b-453e-becf-27f51c8fcf8e","timestamp":"2025-12-15T17:38:12.877Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:38:12.878Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device","timestamp":"2025-12-15T17:38:12.878Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device, redirecting to registration","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:12.878Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:38:25.739Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:25.739Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:38:25.740Z"}
+{"level":"info","message":"QR issued","nonce":"b22ca298-cfb7-4280-8ef8-47d94501b229","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:25.740Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:25.747Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"b22ca298-cfb7-4280-8ef8-47d94501b229","timestamp":"2025-12-15T17:38:34.981Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:38:34.981Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device","timestamp":"2025-12-15T17:38:34.981Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity not found for device, redirecting to registration","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:34.981Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Received registration request","name":"Anurag Bansode","timestamp":"2025-12-15T17:38:40.073Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Attempting to register identity","name":"Anurag Bansode","timestamp":"2025-12-15T17:38:40.073Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity registered successfully","name":"Anurag Bansode","timestamp":"2025-12-15T17:38:40.074Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","email":"shadowk2345@gmail.com","level":"info","message":"Identity registered successfully","name":"Anurag Bansode","timestamp":"2025-12-15T17:38:40.075Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"b22ca298-cfb7-4280-8ef8-47d94501b229","timestamp":"2025-12-15T17:38:40.107Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:38:40.108Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:38:40.108Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:40.109Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"b22ca298-cfb7-4280-8ef8-47d94501b229","timestamp":"2025-12-15T17:38:42.743Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:38:42.744Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:38:42.744Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attendance recorded","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:42.745Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"b22ca298-cfb7-4280-8ef8-47d94501b229","timestamp":"2025-12-15T17:38:50.641Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:38:50.642Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:38:50.642Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:50.643Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"1","timestamp":"2025-12-15T17:38:56.135Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:56.135Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S1","status":"ACTIVE","timestamp":"2025-12-15T17:38:56.136Z"}
+{"level":"info","message":"QR issued","nonce":"83af12ac-c23b-4cd1-bf08-4878d1d30815","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:56.136Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:56.141Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"b22ca298-cfb7-4280-8ef8-47d94501b229","timestamp":"2025-12-15T17:38:56.350Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:38:56.350Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:38:56.350Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"warn","message":"Duplicate attendance attempt blocked","sessionId":"WS-D1-S1","timestamp":"2025-12-15T17:38:56.351Z"}
+{"level":"error","message":"Attendance already recorded for this device","stack":"Error: Attendance already recorded for this device\n    at file:///D:/Attendance/attendance/src/routes/scan.routes.js:45:17\n    at file:///D:/Attendance/attendance/src/utils/asyncHandler.js:2:19\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:157:13)\n    at Route.dispatch (D:\\Attendance\\attendance\\node_modules\\router\\lib\\route.js:117:3)\n    at handle (D:\\Attendance\\attendance\\node_modules\\router\\index.js:435:11)\n    at Layer.handleRequest (D:\\Attendance\\attendance\\node_modules\\router\\lib\\layer.js:152:17)\n    at D:\\Attendance\\attendance\\node_modules\\router\\index.js:295:15\n    at processParams (D:\\Attendance\\attendance\\node_modules\\router\\index.js:582:12)\n    at next (D:\\Attendance\\attendance\\node_modules\\router\\index.js:291:5)","status":"fail","statusCode":409,"timestamp":"2025-12-15T17:38:56.352Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"2","timestamp":"2025-12-15T17:39:13.716Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:13.717Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:13.717Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:13.717Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"2","timestamp":"2025-12-15T17:39:16.615Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:16.615Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S2","status":"ACTIVE","timestamp":"2025-12-15T17:39:16.615Z"}
+{"level":"info","message":"QR issued","nonce":"7a8707d2-892d-43cf-88fc-2d99bf0b6cc8","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:16.616Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:16.622Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"7a8707d2-892d-43cf-88fc-2d99bf0b6cc8","timestamp":"2025-12-15T17:39:23.353Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:39:23.354Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:39:23.354Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:23.354Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"7a8707d2-892d-43cf-88fc-2d99bf0b6cc8","timestamp":"2025-12-15T17:39:27.862Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:39:27.863Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:39:27.863Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attendance recorded","sessionId":"WS-D1-S2","timestamp":"2025-12-15T17:39:27.864Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"3","timestamp":"2025-12-15T17:39:36.131Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:36.131Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:36.131Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:36.131Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"3","timestamp":"2025-12-15T17:39:38.697Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:38.697Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S3","status":"ACTIVE","timestamp":"2025-12-15T17:39:38.697Z"}
+{"level":"info","message":"QR issued","nonce":"1ba349f5-fd89-4e86-b00c-5ceeeef12390","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:38.697Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:38.703Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"1ba349f5-fd89-4e86-b00c-5ceeeef12390","timestamp":"2025-12-15T17:39:46.142Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:39:46.142Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:39:46.143Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:46.143Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"1ba349f5-fd89-4e86-b00c-5ceeeef12390","timestamp":"2025-12-15T17:39:49.448Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:39:49.448Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:39:49.448Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attendance recorded","sessionId":"WS-D1-S3","timestamp":"2025-12-15T17:39:49.449Z"}
+{"day":"1","duration_minutes":"60","level":"info","message":"Received request to create session","session":"4","timestamp":"2025-12-15T17:39:57.647Z","workshop":"WS"}
+{"durationMinutes":"60","level":"info","message":"Attempting to create session","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:39:57.647Z"}
+{"durationMinutes":"60","level":"info","message":"Session created successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:39:57.647Z"}
+{"level":"info","message":"Session created successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:39:57.647Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"4","timestamp":"2025-12-15T17:39:59.116Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:39:59.116Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S4","status":"ACTIVE","timestamp":"2025-12-15T17:39:59.117Z"}
+{"level":"info","message":"QR issued","nonce":"ee33e6ce-4005-4968-925f-c3e184b22511","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:39:59.117Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:39:59.124Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received checkin request","nonce":"ee33e6ce-4005-4968-925f-c3e184b22511","timestamp":"2025-12-15T17:40:05.874Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:40:05.874Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:40:05.875Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Checkin successful, redirecting to captcha","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:40:05.875Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Received scan request","nonce":"ee33e6ce-4005-4968-925f-c3e184b22511","timestamp":"2025-12-15T17:40:08.899Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:40:08.899Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:40:08.900Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attendance recorded","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:40:08.901Z"}
+{"level":"info","message":"Request received for attendance log","timestamp":"2025-12-15T17:40:21.220Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"4","timestamp":"2025-12-15T17:40:30.576Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:40:30.576Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S4","status":"ACTIVE","timestamp":"2025-12-15T17:40:30.577Z"}
+{"level":"info","message":"QR issued","nonce":"0365dd4b-25c2-4775-8da4-c857765449f9","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:40:30.577Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:40:30.583Z"}
+{"level":"info","message":"Request received for attendance log CSV download","timestamp":"2025-12-15T17:40:31.513Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:40:31.514Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:40:31.514Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:40:31.514Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:40:31.514Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:40:31.514Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:40:31.515Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Attempting to retrieve identity","timestamp":"2025-12-15T17:40:31.515Z"}
+{"deviceId":"15569bfe-5690-47be-aee7-473bb1da0ca5","level":"info","message":"Identity retrieved successfully","timestamp":"2025-12-15T17:40:31.515Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"4","timestamp":"2025-12-15T17:41:01.192Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:41:01.192Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S4","status":"ACTIVE","timestamp":"2025-12-15T17:41:01.192Z"}
+{"level":"info","message":"QR issued","nonce":"0ac621eb-cd15-4534-b0bd-e6bc2181ba5c","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:41:01.192Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:41:01.198Z"}
+{"level":"info","message":"Request received for attendance summary CSV download","timestamp":"2025-12-15T17:41:02.489Z"}
+{"level":"info","message":"Retrieving all identities","timestamp":"2025-12-15T17:41:02.490Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"4","timestamp":"2025-12-15T17:41:31.588Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:41:31.589Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S4","status":"ACTIVE","timestamp":"2025-12-15T17:41:31.589Z"}
+{"level":"info","message":"QR issued","nonce":"89cd5419-8384-4547-aa24-c7136e0442e9","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:41:31.589Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:41:31.593Z"}
+{"day":"1","level":"info","message":"Received QR generation request","session":"4","timestamp":"2025-12-15T17:42:01.815Z","workshop":"WS"}
+{"level":"info","message":"Attempting to retrieve session","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:42:01.815Z"}
+{"level":"info","message":"Session retrieved successfully","sessionId":"WS-D1-S4","status":"ACTIVE","timestamp":"2025-12-15T17:42:01.815Z"}
+{"level":"info","message":"QR issued","nonce":"5b08e0a2-2802-4391-8947-d108ee65e168","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:42:01.815Z"}
+{"level":"info","message":"QR generated successfully","sessionId":"WS-D1-S4","timestamp":"2025-12-15T17:42:01.820Z"}

@@ -8,6 +8,8 @@ class AdminPanel {
         this.downloadCsvBtn = document.getElementById('download-csv-btn');
         this.createSessionBtn = this.form.querySelector('button[type="submit"]');
         this.logManagementCard = document.getElementById('log-management-card');
+        this.summaryReportResultContainer = document.getElementById('summary-report-result-container');
+        this.downloadSummaryBtn = document.getElementById('download-summary-btn');
 
         // Templates
         this.successTemplate = document.getElementById('session-success-template');
@@ -21,6 +23,7 @@ class AdminPanel {
         this.form.addEventListener('submit', (e) => this._handleSessionSubmit(e));
         this.viewLogBtn.addEventListener('click', () => this._handleViewLog());
         this.downloadCsvBtn.addEventListener('click', () => this._handleDownloadCsv());
+        this.downloadSummaryBtn.addEventListener('click', () => this._handleSummaryReportDownload());
     }
 
     async _initialize() {
@@ -86,7 +89,49 @@ class AdminPanel {
     }
 
     _handleDownloadCsv() {
-        window.location.href = '/admin/attendance/csv';
+        this._downloadFile(
+            this.downloadCsvBtn,
+            '/admin/attendance/csv',
+            'attendance-log.csv'
+        );
+    }
+
+    _handleSummaryReportDownload() {
+        this._downloadFile(
+            this.downloadSummaryBtn,
+            '/admin/attendance/summary-csv',
+            'attendance-summary.csv',
+            this.summaryReportResultContainer
+        );
+    }
+
+    async _downloadFile(button, url, filename, errorContainer) {
+        this._setLoading(button, true);
+        if (errorContainer) this._hide(errorContainer);
+
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: 'Download failed with status ' + response.status }));
+                throw new Error(errorData.error);
+            }
+
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = downloadUrl;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(downloadUrl);
+            a.remove();
+        } catch (error) {
+            if (errorContainer) this._renderError(errorContainer, error.message);
+            else console.error(`Failed to download ${filename}:`, error.message);
+        } finally {
+            this._setLoading(button, false);
+        }
     }
 
     async _fetchApi(url, options = {}) {

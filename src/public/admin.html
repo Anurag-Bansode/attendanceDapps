@@ -36,11 +36,18 @@
         <div id="log-management-card" class="card hidden">
             <h2>Attendance Log</h2>
             <div class="button-group">
-                <button id="view-log-btn">View Log</button>
-                <button id="download-csv-btn">Download CSV</button>
+                <button id="view-log-btn">View Raw Log</button>
+                <button id="download-csv-btn">Download Raw Log (CSV)</button>
             </div>
             <div id="log-container" class="log-display hidden"></div>
         </div>
+    </div>
+
+    <div class="card">
+        <h2>Final Attendance Report</h2>
+        <p>Generate a CSV file formatted like an attendance register, with users as rows and sessions as columns.</p>
+        <button id="download-summary-btn">Download Attendance Register</button>
+        <div id="summary-report-result-container" class="result-container hidden"></div>
     </div>
 
     <!-- Templates for dynamic content -->

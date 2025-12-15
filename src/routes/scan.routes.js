@@ -51,7 +51,8 @@ router.post("/", asyncHandler((req, res, next) => {
   logAttendance(
     sessionId,
     deviceId,
-    identity.emailHash
+    identity.name,
+    identity.email
   );
   logAudit(
     "INFO",

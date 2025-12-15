@@ -1,9 +1,4 @@
-export default new Map();
-/*
-Key: deviceId
-Value: {
-  nameHash,
-  emailHash,
-  createdAt
-}
-*/
+import { PersistentStore } from "../utils/PersistentStore.js";
+
+export default new PersistentStore("identities.json");
+

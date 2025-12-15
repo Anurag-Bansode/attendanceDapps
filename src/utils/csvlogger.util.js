@@ -20,7 +20,7 @@ if (ENABLE_LOGS) {
 
   ensureFile(
     attendanceFile,
-    "timestamp,session_id,device_id,email_hash"
+    "timestamp,session_id,device_id,name,email"
   );
 
   ensureFile(
@@ -34,14 +34,16 @@ function writeLine(file, values) {
 }
 
 
-export function logAttendance(sessionId, deviceId, emailHash) {
+export function logAttendance(sessionId, deviceId, name, email) {
   if (!ENABLE_LOGS) return;
 
   writeLine(attendanceFile, [
     new Date().toISOString(),
     sessionId,
     deviceId,
-    emailHash
+    // Sanitize by wrapping in quotes
+    `"${name.replace(/"/g, '""')}"`,
+    email
   ]);
 }
 
