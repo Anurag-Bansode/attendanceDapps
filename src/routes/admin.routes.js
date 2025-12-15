@@ -1,5 +1,6 @@
-const express = require("express");
-const { createSession } = require("../services/session.service");
+import express from "express";
+import { createSession } from "../services/session.service.js";
+import { logger } from "../utils/logger.js";
 
 const router = express.Router();
 
@@ -9,10 +10,11 @@ router.post("/session", (req, res) => {
 
   try {
     createSession(sessionId, duration_minutes);
+    logger.info("Session created", { sessionId });
     res.json({ success: true, sessionId });
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
 });
 
-module.exports = router;
+export default router;

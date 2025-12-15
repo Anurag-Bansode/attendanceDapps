@@ -1,29 +1,19 @@
-const sessions = require("../stores/session.store");
+import sessionStore from "../stores/session.store.js";
 
-function createSession(sessionId, durationMinutes) {
-  if (sessions.has(sessionId)) {
+export function createSession(sessionId, durationMinutes) {
+  const now = Date.now();
+
+  if (sessionStore.has(sessionId)) {
     throw new Error("Session already exists");
   }
 
-  const now = Date.now();
-  sessions.set(sessionId, {
+  sessionStore.set(sessionId, {
     status: "ACTIVE",
     startTime: now,
     endTime: now + durationMinutes * 60 * 1000
   });
 }
 
-function getSession(sessionId) {
-  return sessions.get(sessionId);
+export function getSession(sessionId) {
+  return sessionStore.get(sessionId);
 }
-
-function autoCloseSessions() {
-  const now = Date.now();
-  for (const s of sessions.values()) {
-    if (s.status === "ACTIVE" && now > s.endTime) {
-      s.status = "CLOSED";
-    }
-  }
-}
-
-module.exports = { createSession, getSession, autoCloseSessions };

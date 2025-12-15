@@ -1,22 +1,31 @@
-const express = require("express");
-const { PORT } = require("./config");
-const cookieParser = require("cookie-parser");
+import express from "express";
+import cookieParser from "cookie-parser";
+import { PORT } from "./config.js";
 
-require("./utils/scheduler");
+import checkinRoutes from "./routes/checkin.routes.js";
+import scanRoutes from "./routes/scan.routes.js";
+import identityRoutes from "./routes/identity.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
+import qrRoutes from "./routes/qr.routes.js";
+
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-app.use(require("cookie-parser")());
-app.use("/admin", require("./routes/admin.routes"));
-app.use("/qr", require("./routes/qr.routes"));
-app.use("/scan", require("./routes/scan.routes"));
-app.use("/debug", require("./routes/debug.routes"));
-app.use("/identity", require("./routes/identity.routes"));
-app.use("/checkin", require("./routes/checkin.routes"));
+app.use(express.static("src/public"));
+
+app.use("/checkin", checkinRoutes);
+app.use("/scan", scanRoutes);
+app.use("/identity", identityRoutes);
+app.use("/admin", adminRoutes);
+app.use("/qr",qrRoutes);
 
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+//export default app;

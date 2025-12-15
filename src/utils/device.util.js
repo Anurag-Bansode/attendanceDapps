@@ -1,17 +1,15 @@
-const { v4: uuidv4 } = require("uuid");
+import crypto from "crypto";
 
-function getDeviceId(req, res) {
-  let deviceId = req.cookies.device_id;
+export function getDeviceId(req, res) {
+  let id = req.cookies.device_id;
 
-  if (!deviceId) {
-    deviceId = uuidv4();
-    res.cookie("device_id", deviceId, {
+  if (!id) {
+    id = crypto.randomUUID();
+    res.cookie("device_id", id, {
       httpOnly: true,
       sameSite: "Lax"
     });
   }
 
-  return deviceId;
+  return id;
 }
-
-module.exports = { getDeviceId };

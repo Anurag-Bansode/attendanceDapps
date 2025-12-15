@@ -1,7 +1,7 @@
-const attendance = require("../stores/attendance.store");
-const deviceStore = require("../stores/device.store");
+import attendance from "../stores/attendance.store.js";
+import deviceStore from "../stores/device.store.js";
 
-function markAttendance(sessionId, deviceId) {
+export function markAttendance(sessionId, deviceId) {
   if (!deviceStore.has(sessionId)) {
     deviceStore.set(sessionId, new Set());
   }
@@ -24,12 +24,10 @@ function markAttendance(sessionId, deviceId) {
   });
 }
 
-function summary() {
+export function summary() {
   const out = {};
   for (const [k, v] of attendance.entries()) {
     out[k] = v.length;
   }
   return out;
 }
-
-module.exports = { markAttendance, summary };

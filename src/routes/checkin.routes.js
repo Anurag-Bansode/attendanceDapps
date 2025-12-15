@@ -1,7 +1,7 @@
-const express = require("express");
-const nonceStore = require("../stores/nonce.store");
-const { getDeviceId } = require("../utils/device.util");
-const { getIdentity } = require("../services/identity.service");
+import express from "express";
+import nonceStore from "../stores/nonce.store.js";
+import { getDeviceId } from "../utils/device.util.js";
+import { getIdentity } from "../services/identity.service.js";
 
 const router = express.Router();
 
@@ -9,19 +9,22 @@ router.get("/", (req, res) => {
   const { nonce } = req.query;
 
   if (!nonce || !nonceStore.has(nonce)) {
-    return res.status(400).send("Invalid or expired QR");
+    return res.sendFile("error.html", { root: "src/public" });
   }
 
+  const { sessionId } = nonceStore.get(nonce);
   const deviceId = getDeviceId(req, res);
   const identity = getIdentity(deviceId);
 
   if (!identity) {
-    // Not registered → show registration page
-    return res.sendFile("register.html", { root: "src/public" });
+    return res.redirect(
+      `/register.html?nonce=${nonce}&session=${sessionId}`
+    );
   }
 
-  // Registered → show captcha page
-  return res.sendFile("captcha.html", { root: "src/public" });
+  return res.redirect(
+    `/captcha.html?nonce=${nonce}&session=${sessionId}`
+  );
 });
 
-module.exports = router;
+export default router;

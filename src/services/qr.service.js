@@ -1,14 +1,11 @@
-const QRCode = require("qrcode");
-const { v4: uuidv4 } = require("uuid");
-const nonceStore = require("../stores/nonce.store");
-const { QR_TTL_SECONDS } = require("../config");
-const { BASE_URL } = require("../config");
+import QRCode from "qrcode";
+import crypto from "crypto";
+import nonceStore from "../stores/nonce.store.js";
+import { BASE_URL, QR_TTL_SECONDS } from "../config.js";
+import { logger } from "../utils/logger.js";
 
-
-
-
-async function generateQR(sessionId) {
-  const nonce = uuidv4();
+export async function generateQR(sessionId) {
+  const nonce = crypto.randomUUID();
   const issuedAt = Date.now();
 
   nonceStore.set(nonce, {
@@ -16,15 +13,8 @@ async function generateQR(sessionId) {
     expiresAt: issuedAt + QR_TTL_SECONDS * 1000
   });
 
-  const payload = JSON.stringify({
-    session_id: sessionId,
-    nonce,
-    issued_at: issuedAt
-  });
+  logger.info("QR issued", { sessionId, nonce });
 
-  const checkinUrl = `${BASE_URL}/checkin?nonce=${nonce}`;
-  return QRCode.toDataURL(checkinUrl);
-
+  const url = `${BASE_URL}/checkin?nonce=${nonce}`;
+  return QRCode.toDataURL(url);
 }
-
-module.exports = { generateQR };

@@ -1,26 +1,41 @@
-const express = require("express");
-const { getDeviceId } = require("../utils/device.util");
-const { registerIdentity } = require("../services/identity.service");
+import express from "express";
+import { registerIdentity } from "../services/identity.service.js";
+import { getDeviceId } from "../utils/device.util.js";
+import { logAudit } from "../utils/csvlogger.util.js";
 
 const router = express.Router();
 
 router.post("/register", (req, res) => {
-  console.log("HEADERS:", req.headers);
-  console.log("BODY:", req.body);
-    
   const { name, email } = req.body;
+  const deviceId = getDeviceId(req, res);
+
   if (!name || !email) {
     return res.status(400).json({ error: "Name and email required" });
   }
 
-  const deviceId = getDeviceId(req, res);
-
   try {
     registerIdentity(deviceId, name, email);
+    logAudit(
+  "INFO",
+  "IDENTITY_REGISTERED",
+  null,
+  deviceId,
+  "New device identity created"
+);
+
     res.json({ success: true });
   } catch (e) {
+    logAudit(
+  "WARN",
+  "INVALID_QR",
+  null,
+  deviceId,
+  `Nonce: ${nonce}`
+);
+
     res.status(409).json({ error: e.message });
   }
+
 });
 
-module.exports = router;
+export default router;

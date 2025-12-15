@@ -1,27 +1,23 @@
-const crypto = require("crypto");
-const identityStore = require("../stores/identity.store");
+import crypto from "crypto";
+import identityStore from "../stores/identity.store.js";
 
-function hash(value) {
-  return crypto.createHash("sha256").update(value.trim().toLowerCase()).digest("hex");
-}
-
-function registerIdentity(deviceId, name, email) {
+export function registerIdentity(deviceId, name, email) {
   if (identityStore.has(deviceId)) {
-    throw new Error("Identity already registered for this device");
+    throw new Error("Device already registered");
   }
 
-  const identity = {
-    nameHash: hash(name),
-    emailHash: hash(email),
-    createdAt: Date.now()
-  };
+  const emailHash = crypto
+    .createHash("sha256")
+    .update(email.toLowerCase())
+    .digest("hex");
 
-  identityStore.set(deviceId, identity);
-  return identity;
+  identityStore.set(deviceId, {
+    name,
+    emailHash,
+    createdAt: Date.now()
+  });
 }
 
-function getIdentity(deviceId) {
+export function getIdentity(deviceId) {
   return identityStore.get(deviceId);
 }
-
-module.exports = { registerIdentity, getIdentity };

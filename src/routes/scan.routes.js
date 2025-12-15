@@ -1,52 +1,67 @@
-const express = require("express");
-const nonceStore = require("../stores/nonce.store");
-const { getSession } = require("../services/session.service");
-const { markAttendance } = require("../services/attendance.service");
-const { getDeviceId } = require("../utils/device.util");
-const { getIdentity } = require("../services/identity.service");
+import express from "express";
+import { logger } from "../utils/logger.js";
+import { checkAndIncrement } from "../services/scanlimit.service.js";
+import { getDeviceId } from "../utils/device.util.js";
+import nonceStore from "../stores/nonce.store.js";
+import attendanceStore from "../stores/attendance.store.js";
+import { logAttendance, logAudit } from "../utils/csvlogger.util.js";
+import { getIdentity } from "../services/identity.service.js";
 
 
 const router = express.Router();
 
 router.post("/", (req, res) => {
   const { nonce } = req.body;
-  const record = nonceStore.get(nonce);
-
-  if (!record) {
-    return res.status(400).json({ error: "Invalid QR" });
-  }
-
-  const { sessionId, expiresAt } = record;
-  const s = getSession(sessionId);
-
-  if (!s || s.status !== "ACTIVE" || Date.now() > expiresAt) {
-    nonceStore.delete(nonce);
-    return res.status(400).json({ error: "Expired or inactive" });
-  }
   const deviceId = getDeviceId(req, res);
 
-
-  try {
-    nonceStore.delete(nonce);
-    const identity = getIdentity(deviceId);
-if (!identity) {
-  nonceStore.delete(nonce);
-  return res.status(403).json({
-    error: "Identity not registered on this device"
-  });
-}
-
-    markAttendance(sessionId, deviceId);
-
-    res.json({
-      success: true,
-      sessionId,
-      message: "Attendance recorded"
-    });
-  } catch (err) {
-    nonceStore.delete(nonce);
-    res.status(409).json({ error: err.message });
+  if (!nonceStore.has(nonce)) {
+    logger.warn("Invalid or expired nonce", { nonce, deviceId });
+    return res.status(400).json({ error: "Invalid or expired QR" });
   }
+
+  const { sessionId } = nonceStore.get(nonce);
+
+  if (!checkAndIncrement(sessionId, deviceId)) {
+    logger.warn("Rate limit exceeded", { sessionId, deviceId });
+    logAudit(
+      "WARN",
+      "RATE_LIMIT_EXCEEDED",
+      sessionId,
+      deviceId,
+      "More than 2 scan attempts"
+    );
+    return res.status(429).json({ error: "Too many scan attempts" });
+  }
+
+  nonceStore.delete(nonce);
+
+  if (!attendanceStore.has(sessionId)) {
+    attendanceStore.set(sessionId, []);
+  }
+
+  const identity = getIdentity(deviceId);
+
+  attendanceStore.get(sessionId).push({
+    deviceId,
+    scannedAt: Date.now()
+  });
+
+  logAttendance(
+    sessionId,
+    deviceId,
+    identity.emailHash
+  );
+
+  logAudit(
+    "INFO",
+    "ATTENDANCE_RECORDED",
+    sessionId,
+    deviceId
+  );
+
+  logger.info("Attendance recorded", { sessionId, deviceId });
+
+  res.json({ success: true });
 });
 
-module.exports = router;
+export default router;

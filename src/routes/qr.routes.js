@@ -1,7 +1,7 @@
-const express = require("express");
-const { getSession } = require("../services/session.service");
-const { generateQR } = require("../services/qr.service");
-const { QR_TTL_SECONDS } = require("../config");
+import express from "express";
+import { generateQR } from "../services/qr.service.js";
+import { getSession } from "../services/session.service.js";
+import { QR_TTL_SECONDS } from "../config.js";
 
 const router = express.Router();
 
@@ -9,33 +9,31 @@ router.get("/", async (req, res) => {
   const { workshop, day, session } = req.query;
 
   if (!workshop || !day || !session) {
-    return res.status(400).send("Missing query params");
+    return res.status(400).send("Missing workshop/day/session");
   }
 
   const sessionId = `${workshop}-D${day}-S${session}`;
-  const s = getSession(sessionId);
+  const sessionInfo = getSession(sessionId);
 
-  if (!s || s.status !== "ACTIVE") {
+  if (!sessionInfo || sessionInfo.status !== "ACTIVE") {
     return res.status(400).send("Session not active");
   }
 
-  const qrImage = await generateQR(sessionId);
+  const qr = await generateQR(sessionId);
 
-  res.setHeader("Content-Type", "text/html");
   res.send(`
-    <!DOCTYPE html>
     <html>
       <body style="text-align:center;font-family:sans-serif">
-        <h2>${sessionId}</h2>
-        <img src="${qrImage}" />
-        <p>QR auto-refreshes</p>
+        <h2>Scan to Mark Attendance</h2>
+        <h3>${sessionId}</h3>
+        <img src="${qr}" />
+        <p>QR refreshes automatically</p>
         <script>
-          setTimeout(() => location.reload(), 20000);
+          setTimeout(() => location.reload(), ${QR_TTL_SECONDS}*1000);
         </script>
       </body>
     </html>
   `);
 });
 
-
-module.exports = router;
+export default router;

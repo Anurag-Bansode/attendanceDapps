@@ -1,12 +1,26 @@
-const { autoCloseSessions } = require("../services/session.service");
-const nonceStore = require("../stores/nonce.store");
+import { nonceStore } from "../stores/nonce.store.js";
+import { sessionStore } from "../stores/session.store.js";
+import { logger } from "./logger.js";
 
-setInterval(() => {
-  const now = Date.now();
+export function startSchedulers() {
+  setInterval(() => {
+    const now = Date.now();
 
-  for (const [n, v] of nonceStore.entries()) {
-    if (v.expiresAt <= now) nonceStore.delete(n);
-  }
+    for (const [nonce, data] of nonceStore.entries()) {
+      if (data.expiresAt <= now) {
+        nonceStore.delete(nonce);
+        logger.info("Nonce expired", { nonce });
+      }
+    }
+  }, 1000);
 
-  autoCloseSessions();
-}, 2000);
+  setInterval(() => {
+    const now = Date.now();
+    for (const [id, session] of sessionStore.entries()) {
+      if (session.status === "ACTIVE" && now > session.endTime) {
+        session.status = "CLOSED";
+        logger.info("Session closed", { sessionId: id });
+      }
+    }
+  }, 5000);
+}

@@ -1,35 +1,23 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>Verify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
 <body>
-<h2>Verify Presence</h2>
 
-<p id="q"></p>
-<input id="ans" placeholder="Answer"><br><br>
-<button onclick="verify()">Submit</button>
-<pre id="out"></pre>
+<div class="card">
+  <h2>Verify Presence</h2>
+  <div id="session" class="session"></div>
 
-<script>
-const a = Math.floor(Math.random() * 10);
-const b = Math.floor(Math.random() * 10);
-q.textContent = `What is ${a} + ${b}?`;
+  <p id="question"></p>
+  <input id="answer" placeholder="Enter answer">
+  <div id="error" class="error"></div>
 
-async function verify() {
-  if (Number(ans.value) !== a + b) {
-    out.textContent = "Captcha incorrect";
-    return;
-  }
+  <button id="submitBtn">Submit</button>
+</div>
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const nonce = urlParams.get("nonce");
-
-  const res = await fetch("/scan", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nonce })
-  });
-
-  out.textContent = JSON.stringify(await res.json(), null, 2);
-}
-</script>
+<script src="/js/captcha.js"></script>
 </body>
 </html>
