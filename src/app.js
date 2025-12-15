@@ -24,7 +24,7 @@ app.use("/scan", scanRoutes);
 app.use("/identity", identityRoutes);
 app.use("/admin", adminRoutes);
 app.use("/qr",qrRoutes);
-app.use("/qr",qrRoutes);
+app.use("/health",healthcheck);
 
 
 app.listen(PORT, () => {
