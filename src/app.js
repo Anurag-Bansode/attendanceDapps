@@ -7,6 +7,8 @@ import scanRoutes from "./routes/scan.routes.js";
 import identityRoutes from "./routes/identity.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import qrRoutes from "./routes/qr.routes.js";
+import healthcheck from "./routes/healthcheck.routes.js";
+
 
 
 const app = express();
@@ -21,6 +23,7 @@ app.use("/checkin", checkinRoutes);
 app.use("/scan", scanRoutes);
 app.use("/identity", identityRoutes);
 app.use("/admin", adminRoutes);
+app.use("/qr",qrRoutes);
 app.use("/qr",qrRoutes);
 
 
