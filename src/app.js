@@ -25,7 +25,9 @@ app.use("/qr",qrRoutes);
 
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  alert(process.env.PORT)
+  alert(process.env.RP_NAME)
+  alert(process.env.RP_ID)
 });
 
 //export default app;
