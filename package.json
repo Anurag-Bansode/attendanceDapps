@@ -16,6 +16,7 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-session": "^1.18.2",
+    "pm2": "^6.0.14",
     "qrcode": "^1.5.4",
     "uuid": "^13.0.0",
     "winston": "^3.19.0"

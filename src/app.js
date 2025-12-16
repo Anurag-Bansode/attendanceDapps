@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session"; 
-import { PORT, SESSION_SECRET, NODE_ENV } from "./config.js"; 
+import { SESSION_SECRET, NODE_ENV } from "./config.js"; 
 import { logger } from "./utils/logger.js"; 
 
 import checkinRoutes from "./routes/checkin.routes.js";
@@ -57,10 +57,10 @@ app.use((err, req, res, next) => {
 
   res.status(err.statusCode).json(errorResponse);
 });
-
+const PORT=process.env.PORT || 3000;
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
-      logger.info(`Server is running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode.`);
+  app.listen(PORT,() => {
+      logger.info(`Server is running  in ${process.env.NODE_ENV || 'development'} mode.`);
   });
 }
 
