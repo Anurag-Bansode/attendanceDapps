@@ -1,6 +1,5 @@
 import winston from 'winston';
-import path from 'path';
-import { LOG_DIR, NODE_ENV, ENABLE_LOGS } from '../config.js';
+import { NODE_ENV } from '../config.js';
 
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, printf, colorize, json, errors } = format;
@@ -40,24 +39,6 @@ if (NODE_ENV !== 'production') {
 if (NODE_ENV === 'production') {
   loggerTransports.push(
     new transports.Console({
-      // Use a format that's easy for log aggregators to parse.
-      // errors({ stack: true }) ensures the stack trace is included for errors.
-      format: combine(timestamp(), json(), errors({ stack: true })),
-    })
-  );
-}
-
-// For file logging, we use a more structured format.
-// This is asynchronous and won't block the event loop.
-if (ENABLE_LOGS === 'true') {
-  loggerTransports.push(
-    new transports.File({
-      filename: path.join(LOG_DIR, 'error.log'),
-      level: 'error',
-      format: combine(timestamp(), json(), errors({ stack: true })),
-    }),
-    new transports.File({
-      filename: path.join(LOG_DIR, 'combined.log'),
       format: combine(timestamp(), json(), errors({ stack: true })),
     })
   );
