@@ -1,16 +1,16 @@
 import sessionStore from "../stores/session.store.js";
 import { logger } from "../utils/logger.js"; 
 
-export function createSession(sessionId, durationMinutes) {
+export async function createSession(sessionId, durationMinutes) {
   logger.info("Attempting to create session", { sessionId, durationMinutes });
   const now = Date.now();
 
-  if (sessionStore.has(sessionId)) {
+  if (await sessionStore.has(sessionId)) {
     logger.warn("Session creation failed: Session already exists", { sessionId });
     throw new Error("Session already exists");
   }
 
-  sessionStore.set(sessionId, {
+  await sessionStore.set(sessionId, {
     status: "ACTIVE",
     startTime: now,
     endTime: now + durationMinutes * 60 * 1000
@@ -18,9 +18,9 @@ export function createSession(sessionId, durationMinutes) {
   logger.info("Session created successfully", { sessionId, durationMinutes });
 }
 
-export function getSession(sessionId) {
+export async function getSession(sessionId) {
   logger.info("Attempting to retrieve session", { sessionId });
-  const session = sessionStore.get(sessionId);
+  const session = await sessionStore.get(sessionId);
   if (session) {
     logger.info("Session retrieved successfully", { sessionId, status: session.status });
   } else {

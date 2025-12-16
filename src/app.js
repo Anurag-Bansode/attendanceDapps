@@ -1,5 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 import session from "express-session"; 
 import { SESSION_SECRET, NODE_ENV } from "./config.js"; 
 import { logger } from "./utils/logger.js"; 
@@ -10,6 +12,9 @@ import identityRoutes from "./routes/identity.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import qrRoutes from "./routes/qr.routes.js";
 import healthcheck from "./routes/healthcheck.routes.js"; 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 
@@ -25,7 +30,7 @@ app.use(
   })
 );
 
-app.use(express.static("src/public"));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/checkin", checkinRoutes);
 app.use("/scan", scanRoutes);

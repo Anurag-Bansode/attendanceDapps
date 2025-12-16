@@ -1,24 +1,24 @@
-import { nonceStore } from "../stores/nonce.store.js";
-import { sessionStore } from "../stores/session.store.js";
+import nonceStore from "../stores/nonce.store.js";
+import sessionStore from "../stores/session.store.js";
 import { logger } from "./logger.js";
 
 export function startSchedulers() {
-  setInterval(() => {
+  setInterval(async () => {
     const now = Date.now();
 
-    for (const [nonce, data] of nonceStore.entries()) {
+    for (const [nonce, data] of await nonceStore.entries()) {
       if (data.expiresAt <= now) {
-        nonceStore.delete(nonce);
+        await nonceStore.delete(nonce);
         logger.info("Nonce expired", { nonce });
       }
     }
   }, 1000);
 
-  setInterval(() => {
+  setInterval(async () => {
     const now = Date.now();
-    for (const [id, session] of sessionStore.entries()) {
+    for (const [id, session] of await sessionStore.entries()) {
       if (session.status === "ACTIVE" && now > session.endTime) {
-        session.status = "CLOSED";
+        await sessionStore.set(id, { ...session, status: "CLOSED" });
         logger.info("Session closed", { sessionId: id });
       }
     }

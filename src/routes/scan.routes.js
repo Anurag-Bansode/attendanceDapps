@@ -10,36 +10,35 @@ import AppError from "../utils/AppError.js";
 
 const router = express.Router();
 
-router.post("/", asyncHandler((req, res, next) => {
+router.post("/", asyncHandler(async (req, res, next) => {
   const { nonce } = req.body;
   const deviceId = getDeviceId(req, res);
 
   logger.info("Received scan request", { nonce, deviceId }); 
 
-  if (!nonceStore.has(nonce)) {
+  if (!(await nonceStore.has(nonce))) {
     return next(new AppError("Invalid or expired QR", 400));
   }
 
-  const { sessionId } = nonceStore.get(nonce);
+  const { sessionId } = await nonceStore.get(nonce);
 
-  if (!checkAndIncrement(sessionId, deviceId)) {
+  if (!(await checkAndIncrement(sessionId, deviceId))) {
     logger.warn("Rate limit exceeded", { sessionId, deviceId });
     return next(new AppError("Too many scan attempts", 429));
   }
 
-  if (!attendanceStore.has(sessionId)) {
-    attendanceStore.set(sessionId, []);
-  }
-  const identity = getIdentity(deviceId);
-  const hasAlreadyAttended = attendanceStore.get(sessionId)?.some(att => att.deviceId === deviceId);
+  const sessionAttendance = await attendanceStore.get(sessionId) || [];
+  const identity = await getIdentity(deviceId);
+  const hasAlreadyAttended = sessionAttendance.some(att => att.deviceId === deviceId);
   if (hasAlreadyAttended) {
     logger.warn("Duplicate attendance attempt blocked", { sessionId, deviceId });
     return next(new AppError("Attendance already recorded for this device", 409));
   }
-  attendanceStore.get(sessionId).push({
+  sessionAttendance.push({
     deviceId,
     scannedAt: Date.now()
   });
+  await attendanceStore.set(sessionId, sessionAttendance);
   logger.info("Attendance recorded", { sessionId, deviceId });
   res.json({ success: true });
 }));

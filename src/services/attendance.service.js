@@ -1,41 +1,39 @@
 import attendance from "../stores/attendance.store.js";
 import deviceStore from "../stores/device.store.js";
 
-export function markAttendance(sessionId, deviceId) {
-  if (!deviceStore.has(sessionId)) {
-    deviceStore.set(sessionId, new Set());
+export async function markAttendance(sessionId, deviceId) {
+  let sessionAttendance = await attendance.get(sessionId);
+
+  if (!sessionAttendance) {
+    sessionAttendance = [];
   }
 
-  const devices = deviceStore.get(sessionId);
-
-  if (devices.has(deviceId)) {
+  const hasAlreadyAttended = sessionAttendance.some(att => att.deviceId === deviceId);
+  if (hasAlreadyAttended) {
     throw new Error("Device already scanned for this session");
   }
 
-  devices.add(deviceId);
-
-  if (!attendance.has(sessionId)) {
-    attendance.set(sessionId, []);
-  }
-
-  attendance.get(sessionId).push({
+  sessionAttendance.push({
     deviceId,
     at: Date.now()
   });
+
+  await attendance.set(sessionId, sessionAttendance);
 }
 
-export function summary() {
+export async function summary() {
   const out = {};
-  for (const [k, v] of attendance.entries()) {
+  const allEntries = await attendance.entries();
+  for (const [k, v] of allEntries) {
     out[k] = v.length;
   }
   return out;
 }
 
-export function getFullLog() {
+export async function getFullLog() {
   const log = {};
-  
-  for (const [sessionId, records] of attendance.entries()) {
+  const allEntries = await attendance.entries();
+  for (const [sessionId, records] of allEntries) {
     log[sessionId] = records;
   }
   return log;

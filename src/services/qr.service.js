@@ -8,7 +8,7 @@ export async function generateQR(sessionId) {
   const nonce = crypto.randomUUID();
   const issuedAt = Date.now();
 
-  nonceStore.set(nonce, {
+  await nonceStore.set(nonce, {
     sessionId,
     expiresAt: issuedAt + QR_TTL_SECONDS * 1000
   });

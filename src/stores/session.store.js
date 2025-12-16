@@ -1,3 +1,2 @@
 import { PersistentStore } from "../utils/PersistentStore.js";
-export default new PersistentStore("sessions.json");
-
+export default new PersistentStore("session");

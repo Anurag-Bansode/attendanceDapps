@@ -1,4 +1,6 @@
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
 import { createSession } from "../services/session.service.js";
 import { summary as getAttendanceSummary, getFullLog } from "../services/attendance.service.js";
 import { getAllIdentities } from "../services/identity.service.js";
@@ -6,29 +8,32 @@ import { getIdentity } from "../services/identity.service.js";
 import { logger } from "../utils/logger.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const router = express.Router();
 
-router.post("/session", asyncHandler((req, res) => {
+router.post("/session", asyncHandler(async (req, res) => {
   const { workshop, day, session, duration_minutes } = req.body;
   const sessionId = `${workshop}-D${day}-S${session}`;
 
   logger.info("Received request to create session", { workshop, day, session, duration_minutes }); 
 
-  createSession(sessionId, duration_minutes);
+  await createSession(sessionId, duration_minutes);
   logger.info("Session created successfully", { sessionId });
   res.json({ success: true, sessionId });
 }));
 
-router.get("/attendance", (req, res) => {
+router.get("/attendance", asyncHandler(async (req, res) => {
   logger.info("Request received for attendance log");
-  const summary = getAttendanceSummary();
-  const detailed = getFullLog();
+  const summary = await getAttendanceSummary();
+  const detailed = await getFullLog();
   res.json({ summary, detailed });
-});
+}));
 
-router.get("/attendance/csv", (req, res) => {
+router.get("/attendance/csv", asyncHandler(async (req, res) => {
   logger.info("Request received for attendance log CSV download");
-  const detailedLog = getFullLog();
+  const detailedLog = await getFullLog();
   
   const csvRows = [];
   // CSV Header
@@ -37,7 +42,7 @@ router.get("/attendance/csv", (req, res) => {
   // Process each session and its attendance records
   for (const [sessionId, records] of Object.entries(detailedLog)) {
     for (const record of records) {
-      const identity = getIdentity(record.deviceId) || { name: 'N/A', email: 'N/A' };
+      const identity = await getIdentity(record.deviceId) || { name: 'N/A', email: 'N/A' };
       const timestamp = new Date(record.at || record.scannedAt).toISOString();
 
       // Sanitize data to prevent CSV injection by escaping quotes
@@ -54,13 +59,13 @@ router.get("/attendance/csv", (req, res) => {
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', 'attachment; filename="attendance-log.csv"');
   res.status(200).end(csvString);
-});
+}));
 
-router.get("/attendance/summary-csv", (req, res) => {
+router.get("/attendance/summary-csv", asyncHandler(async (req, res) => {
   logger.info("Request received for attendance summary CSV download");
 
-  const allIdentities = getAllIdentities();
-  const detailedLog = getFullLog();
+  const allIdentities = await getAllIdentities();
+  const detailedLog = await getFullLog();
 
   // 1. Find all unique session IDs from the log and sort them to ensure consistent column order.
   const allSessionIds = Object.keys(detailedLog).sort();
@@ -98,10 +103,10 @@ router.get("/attendance/summary-csv", (req, res) => {
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', 'attachment; filename="attendance-summary.csv"');
   res.status(200).end(csvRows.join('\n'));
-});
+}));
 
 router.get("/", (req, res) => {
-  res.sendFile("admin.html", { root: "src/public" });
+  res.sendFile(path.join(__dirname, "../public/admin.html"));
 });
 
 export default router;

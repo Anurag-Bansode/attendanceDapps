@@ -7,7 +7,7 @@ import AppError from "../utils/AppError.js";
 
 const router = express.Router();
 
-router.post("/register", asyncHandler((req, res, next) => {
+router.post("/register", asyncHandler(async (req, res, next) => {
   const { name, email } = req.body;
   const deviceId = getDeviceId(req, res);
 
@@ -19,7 +19,7 @@ router.post("/register", asyncHandler((req, res, next) => {
 
   let registrationStatus = 'newly_registered';
   try {
-    registerIdentity(deviceId, name, email);
+    await registerIdentity(deviceId, name, email);
   } catch (e) {
 
     if (e.message === "Device already registered") {

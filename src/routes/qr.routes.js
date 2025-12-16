@@ -18,7 +18,7 @@ router.get("/api", asyncHandler(async (req, res, next) => {
   }
 
   const sessionId = `${workshop}-D${day}-S${session}`;
-  const sessionInfo = getSession(sessionId);
+  const sessionInfo = await getSession(sessionId);
 
   if (!sessionInfo || sessionInfo.status !== "ACTIVE") {
     return next(new AppError("Session not active", 400));
@@ -39,4 +39,3 @@ router.get("/", (req, res) => {
 });
 
 export default router;
-

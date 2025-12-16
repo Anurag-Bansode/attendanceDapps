@@ -2,14 +2,14 @@ import crypto from "crypto";
 import identityStore from "../stores/identity.store.js";
 import { logger } from "../utils/logger.js"; 
 
-export function registerIdentity(deviceId, name, email) {
+export async function registerIdentity(deviceId, name, email) {
   logger.info("Attempting to register identity", { deviceId, name, email }); 
-  if (identityStore.has(deviceId)) {
+  if (await identityStore.has(deviceId)) {
     logger.warn("Identity registration failed: Device already registered", { deviceId }); 
     throw new Error("Device already registered");
   }
 
-  identityStore.set(deviceId, {
+  await identityStore.set(deviceId, {
     name,
     email: email.toLowerCase(),
     createdAt: Date.now()
@@ -17,9 +17,9 @@ export function registerIdentity(deviceId, name, email) {
   logger.info("Identity registered successfully", { deviceId, name }); 
 }
 
-export function getIdentity(deviceId) {
+export async function getIdentity(deviceId) {
   logger.info("Attempting to retrieve identity", { deviceId }); 
-  const identity = identityStore.get(deviceId);
+  const identity = await identityStore.get(deviceId);
   if (identity) {
     logger.info("Identity retrieved successfully", { deviceId }); 
   } else {
@@ -28,10 +28,10 @@ export function getIdentity(deviceId) {
   return identity;
 }
 
-export function getAllIdentities() {
+export async function getAllIdentities() {
   logger.info("Retrieving all identities");
   const all = {};
-  for (const [deviceId, identity] of identityStore.entries()) {
+  for (const [deviceId, identity] of await identityStore.entries()) {
     all[deviceId] = identity;
   }
   return all;

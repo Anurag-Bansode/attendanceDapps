@@ -5,4 +5,5 @@ export const RP_NAME = process.env.RP_NAME || "Chipper";
 export const QR_TTL_SECONDS = process.env.QR_TTL_SECONDS || 30;
 export const NODE_ENV= process.env.ENV || "development"
 export const ORIGIN= process.env.ORIGIN || "http://localhost:3000/"
-export const PORT=process.env.PORT||3000
+export const PORT=process.env.PORT||3000;
+export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379';
