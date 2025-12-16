@@ -13,9 +13,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     sessionDiv.textContent = `Session: ${sessionId}`;
   }
 
-  // No WebAuthn verification needed anymore.
-  // Instead, we will get the deviceId using FingerprintJS
-
   const a = Math.floor(Math.random() * 10);
   const b = Math.floor(Math.random() * 10);
   questionEl.textContent = `What is ${a} + ${b}?`;
