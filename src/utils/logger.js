@@ -36,6 +36,17 @@ if (NODE_ENV !== 'production') {
   );
 }
 
+// In production, we log to the console in a structured JSON format.
+if (NODE_ENV === 'production') {
+  loggerTransports.push(
+    new transports.Console({
+      // Use a format that's easy for log aggregators to parse.
+      // errors({ stack: true }) ensures the stack trace is included for errors.
+      format: combine(timestamp(), json(), errors({ stack: true })),
+    })
+  );
+}
+
 // For file logging, we use a more structured format.
 // This is asynchronous and won't block the event loop.
 if (ENABLE_LOGS === 'true') {

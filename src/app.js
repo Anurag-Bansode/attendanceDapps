@@ -51,7 +51,7 @@ app.use((err, req, res, next) => {
     error: err.message,
   };
 
-  if (ENV !== 'production') {
+  if (NODE_ENV !== 'production') {
     errorResponse.stack = err.stack;
   }
 
