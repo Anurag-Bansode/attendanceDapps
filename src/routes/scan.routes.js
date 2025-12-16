@@ -4,7 +4,6 @@ import { checkAndIncrement } from "../services/scanlimit.service.js";
 import { getDeviceId } from "../utils/device.util.js";
 import nonceStore from "../stores/nonce.store.js";
 import attendanceStore from "../stores/attendance.store.js";
-import { logAttendance, logAudit } from "../utils/csvlogger.util.js";
 import { getIdentity } from "../services/identity.service.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
@@ -25,13 +24,6 @@ router.post("/", asyncHandler((req, res, next) => {
 
   if (!checkAndIncrement(sessionId, deviceId)) {
     logger.warn("Rate limit exceeded", { sessionId, deviceId });
-    logAudit(
-      "WARN",
-      "RATE_LIMIT_EXCEEDED",
-      sessionId,
-      deviceId,
-      "More than 2 scan attempts"
-    );
     return next(new AppError("Too many scan attempts", 429));
   }
 
@@ -48,18 +40,6 @@ router.post("/", asyncHandler((req, res, next) => {
     deviceId,
     scannedAt: Date.now()
   });
-  logAttendance(
-    sessionId,
-    deviceId,
-    identity.name,
-    identity.email
-  );
-  logAudit(
-    "INFO",
-    "ATTENDANCE_RECORDED",
-    sessionId,
-    deviceId
-  );
   logger.info("Attendance recorded", { sessionId, deviceId });
   res.json({ success: true });
 }));

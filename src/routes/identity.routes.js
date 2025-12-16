@@ -1,7 +1,6 @@
 import express from "express";
 import { registerIdentity } from "../services/identity.service.js";
 import { getDeviceId } from "../utils/device.util.js";
-import { logAudit } from "../utils/csvlogger.util.js";
 import { logger } from "../utils/logger.js"; 
 import asyncHandler from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
@@ -31,13 +30,6 @@ router.post("/register", asyncHandler((req, res, next) => {
     }
   }
 
-  logAudit(
-    "INFO",
-    "IDENTITY_REGISTERED",
-    null,
-    deviceId,
-    "New device identity created"
-  );
   logger.info("Identity registered successfully", { name, email, deviceId }); 
 
   res.json({ success: true, status: registrationStatus });
