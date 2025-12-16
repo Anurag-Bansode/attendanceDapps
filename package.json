@@ -13,11 +13,14 @@
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^5.0.1",
     "cookie-parser": "^1.4.7",
+    "csv-stringify": "^6.6.0",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-session": "^1.18.2",
+    "mongoose": "^9.0.1",
     "pm2": "^6.0.14",
     "qrcode": "^1.5.4",
+    "redis": "^5.10.0",
     "uuid": "^13.0.0",
     "winston": "^3.19.0"
   },

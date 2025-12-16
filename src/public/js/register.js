@@ -1,6 +1,6 @@
 const params = new URLSearchParams(window.location.search);
 const nonce = params.get("nonce");
-const sessionId = params.get("session");
+const sessionId = params.get("session"); // This is a string
 const expiresAt = params.get("expiresAt");
 
 document.getElementById("session").textContent =
@@ -10,7 +10,7 @@ const countdownElement = document.getElementById("countdown");
 
 if (expiresAt && countdownElement) {
   const expiryTime = parseInt(expiresAt, 10);
-
+  
   const timer = setInterval(() => {
     const now = Date.now();
     const timeLeftSeconds = Math.round((expiryTime - now) / 1000);

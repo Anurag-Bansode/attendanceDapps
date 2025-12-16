@@ -1,10 +1,9 @@
 import express from "express";
 import { logger } from "../utils/logger.js";
 import { checkAndIncrement } from "../services/scanlimit.service.js";
+import { markAttendance } from "../services/attendance.service.js";
 import { getDeviceId } from "../utils/device.util.js";
-import nonceStore from "../stores/nonce.store.js";
-import attendanceStore from "../stores/attendance.store.js";
-import { getIdentity } from "../services/identity.service.js";
+import Nonce from "../models/nonce.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
 
@@ -16,31 +15,28 @@ router.post("/", asyncHandler(async (req, res, next) => {
 
   logger.info("Received scan request", { nonce, deviceId }); 
 
-  if (!(await nonceStore.has(nonce))) {
+  const nonceDoc = await Nonce.findById(nonce);
+  if (!nonceDoc) {
     return next(new AppError("Invalid or expired QR", 400));
   }
 
-  const { sessionId } = await nonceStore.get(nonce);
+  const { sessionId } = nonceDoc;
 
   if (!(await checkAndIncrement(sessionId, deviceId))) {
     logger.warn("Rate limit exceeded", { sessionId, deviceId });
     return next(new AppError("Too many scan attempts", 429));
   }
 
-  const sessionAttendance = await attendanceStore.get(sessionId) || [];
-  const identity = await getIdentity(deviceId);
-  const hasAlreadyAttended = sessionAttendance.some(att => att.deviceId === deviceId);
-  if (hasAlreadyAttended) {
-    logger.warn("Duplicate attendance attempt blocked", { sessionId, deviceId });
-    return next(new AppError("Attendance already recorded for this device", 409));
+  try {
+    await markAttendance(sessionId, deviceId);
+    logger.info("Attendance recorded", { sessionId, deviceId });
+    res.json({ success: true });
+  } catch (error) {
+    if (error.message.includes("Device already scanned")) {
+      return next(new AppError("Attendance already recorded for this device", 409));
+    }
+    return next(error);
   }
-  sessionAttendance.push({
-    deviceId,
-    scannedAt: Date.now()
-  });
-  await attendanceStore.set(sessionId, sessionAttendance);
-  logger.info("Attendance recorded", { sessionId, deviceId });
-  res.json({ success: true });
 }));
 
 export default router;

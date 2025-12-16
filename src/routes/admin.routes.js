@@ -4,9 +4,10 @@ import { fileURLToPath } from "url";
 import { createSession } from "../services/session.service.js";
 import { summary as getAttendanceSummary, getFullLog } from "../services/attendance.service.js";
 import { getAllIdentities } from "../services/identity.service.js";
-import { getIdentity } from "../services/identity.service.js";
 import { logger } from "../utils/logger.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import { stringify } from "csv-stringify";
+import Attendance from "../models/attendance.model.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,32 +34,44 @@ router.get("/attendance", asyncHandler(async (req, res) => {
 
 router.get("/attendance/csv", asyncHandler(async (req, res) => {
   logger.info("Request received for attendance log CSV download");
-  const detailedLog = await getFullLog();
-  
-  const csvRows = [];
-  // CSV Header
-  csvRows.push("Session ID,Device ID,Name,Email,Timestamp");
-
-  // Process each session and its attendance records
-  for (const [sessionId, records] of Object.entries(detailedLog)) {
-    for (const record of records) {
-      const identity = await getIdentity(record.deviceId) || { name: 'N/A', email: 'N/A' };
-      const timestamp = new Date(record.at || record.scannedAt).toISOString();
-
-      // Sanitize data to prevent CSV injection by escaping quotes
-      const sanitizedSessionId = `"${sessionId.replace(/"/g, '""')}"`;
-      const sanitizedDeviceId = `"${record.deviceId.replace(/"/g, '""')}"`;
-      const sanitizedName = `"${identity.name.replace(/"/g, '""')}"`;
-
-      csvRows.push([sanitizedSessionId, sanitizedDeviceId, sanitizedName, identity.email, timestamp].join(','));
-    }
-  }
-
-  const csvString = csvRows.join('\n');
 
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', 'attachment; filename="attendance-log.csv"');
-  res.status(200).end(csvString);
+
+  // 1. Use MongoDB aggregation to join attendance with identities efficiently.
+  const attendanceWithIdentities = await Attendance.aggregate([
+    { $sort: { scannedAt: 1 } },
+    {
+      $lookup: {
+        from: 'identities', // The name of the identities collection
+        localField: 'deviceId',
+        foreignField: '_id',
+        as: 'identityInfo'
+      }
+    },
+    {
+      $unwind: { // Deconstruct the identityInfo array
+        path: '$identityInfo',
+        preserveNullAndEmptyArrays: true // Keep attendance records even if no identity is found
+      }
+    },
+    {
+      $project: { // Shape the final output
+        _id: 0,
+        sessionId: '$sessionId',
+        deviceId: '$deviceId',
+        name: { $ifNull: ['$identityInfo.name', 'N/A'] },
+        email: { $ifNull: ['$identityInfo.email', 'N/A'] },
+        timestamp: '$scannedAt'
+      }
+    }
+  ]);
+
+  // 2. Use a robust CSV library to generate the output and stream it.
+  const stringifier = stringify({ header: true, columns: ['sessionId', 'deviceId', 'name', 'email', 'timestamp'] });
+  stringifier.pipe(res);
+  attendanceWithIdentities.forEach(row => stringifier.write(row));
+  stringifier.end();
 }));
 
 router.get("/attendance/summary-csv", asyncHandler(async (req, res) => {
@@ -67,42 +80,41 @@ router.get("/attendance/summary-csv", asyncHandler(async (req, res) => {
   const allIdentities = await getAllIdentities();
   const detailedLog = await getFullLog();
 
-  // 1. Find all unique session IDs from the log and sort them to ensure consistent column order.
-  const allSessionIds = Object.keys(detailedLog).sort();
+  // 1. Use an aggregation to get all unique, sorted session IDs directly from the DB.
+  const sessionIdsResult = await Attendance.aggregate([
+    { $group: { _id: '$sessionId' } },
+    { $sort: { _id: 1 } },
+    { $group: { _id: null, ids: { $push: '$_id' } } }
+  ]);
+  const allSessionIds = sessionIdsResult.length > 0 ? sessionIdsResult[0].ids : [];
 
-  // 2. Create an efficient lookup map of which devices attended which sessions.
-  const attendanceLookup = new Map(); // Map<deviceId, Set<sessionId>>
-  for (const [sessionId, records] of Object.entries(detailedLog)) {
-    for (const record of records) {
-      if (!attendanceLookup.has(record.deviceId)) {
-        attendanceLookup.set(record.deviceId, new Set());
-      }
-      attendanceLookup.get(record.deviceId).add(sessionId);
-    }
-  }
-
-  const csvRows = [];
-  // 3. Create the dynamic CSV header.
-  const header = ["Name", "Email", "Device ID", ...allSessionIds];
-  csvRows.push(header.join(','));
-
-  // 4. Build a row for each registered user.
-  for (const [deviceId, identity] of Object.entries(allIdentities)) {
-    const attendedSessions = attendanceLookup.get(deviceId) || new Set();
-    const row = [
-      `"${identity.name.replace(/"/g, '""')}"`,
-      `"${identity.email.replace(/"/g, '""')}"`,
-      `"${deviceId.replace(/"/g, '""')}"`
-    ];
-
-    // For each session column, mark 'P' for present or leave blank.
-    allSessionIds.forEach(sessionId => row.push(attendedSessions.has(sessionId) ? 'P' : ''));
-    csvRows.push(row.join(','));
-  }
+  // 2. Use aggregation to create the attendance lookup map efficiently.
+  const attendanceByDevice = await Attendance.aggregate([
+    { $group: { _id: '$deviceId', sessions: { $addToSet: '$sessionId' } } }
+  ]);
+  const attendanceLookup = new Map(attendanceByDevice.map(item => [item._id, new Set(item.sessions)]));
 
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', 'attachment; filename="attendance-summary.csv"');
-  res.status(200).end(csvRows.join('\n'));
+
+  // 3. Create the dynamic CSV header and initialize the stringifier.
+  const columns = ["name", "email", "deviceId", ...allSessionIds];
+  const stringifier = stringify({ header: true, columns });
+  stringifier.pipe(res);
+
+  // 4. Build and stream a row for each registered user.
+  for (const [deviceId, identity] of Object.entries(allIdentities)) {
+    const attendedSessions = attendanceLookup.get(deviceId) || new Set();
+    const row = {
+      name: identity.name,
+      email: identity.email,
+      deviceId: deviceId
+    };
+
+    allSessionIds.forEach(sessionId => row[sessionId] = attendedSessions.has(sessionId) ? 'P' : '');
+    stringifier.write(row);
+  }
+  stringifier.end();
 }));
 
 router.get("/", (req, res) => {

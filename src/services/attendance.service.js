@@ -1,40 +1,35 @@
-import attendance from "../stores/attendance.store.js";
-import deviceStore from "../stores/device.store.js";
+import Attendance from "../models/attendance.model.js";
 
 export async function markAttendance(sessionId, deviceId) {
-  let sessionAttendance = await attendance.get(sessionId);
-
-  if (!sessionAttendance) {
-    sessionAttendance = [];
-  }
-
-  const hasAlreadyAttended = sessionAttendance.some(att => att.deviceId === deviceId);
-  if (hasAlreadyAttended) {
+  try {
+    await Attendance.create({ sessionId, deviceId });
+  } catch (error) {
+    // Catch unique index violation
+    if (error.code === 11000) {
     throw new Error("Device already scanned for this session");
+    }
+    throw error; // Re-throw other errors
   }
-
-  sessionAttendance.push({
-    deviceId,
-    at: Date.now()
-  });
-
-  await attendance.set(sessionId, sessionAttendance);
 }
 
 export async function summary() {
-  const out = {};
-  const allEntries = await attendance.entries();
-  for (const [k, v] of allEntries) {
-    out[k] = v.length;
-  }
-  return out;
+  const results = await Attendance.aggregate([
+    { $group: { _id: '$sessionId', count: { $sum: 1 } } }
+  ]);
+  return results.reduce((acc, item) => {
+    acc[item._id] = item.count;
+    return acc;
+  }, {});
 }
 
 export async function getFullLog() {
-  const log = {};
-  const allEntries = await attendance.entries();
-  for (const [sessionId, records] of allEntries) {
-    log[sessionId] = records;
-  }
-  return log;
+  const records = await Attendance.find({}).sort({ scannedAt: 1 }).lean();
+  // Group by sessionId for the format expected by the frontend
+  return records.reduce((acc, record) => {
+    if (!acc[record.sessionId]) {
+      acc[record.sessionId] = [];
+    }
+    acc[record.sessionId].push({ deviceId: record.deviceId, scannedAt: record.scannedAt });
+    return acc;
+  }, {});
 }

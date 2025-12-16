@@ -1,5 +1,6 @@
 import winston from 'winston';
 import { NODE_ENV } from '../config.js';
+import MongoTransport from './mongo.transport.js';
 
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, printf, colorize, json, errors } = format;
@@ -34,6 +35,11 @@ if (NODE_ENV !== 'production') {
     })
   );
 }
+
+// Always log to MongoDB
+loggerTransports.push(new MongoTransport({
+  level: 'info',
+}));
 
 // In production, we log to the console in a structured JSON format.
 if (NODE_ENV === 'production') {

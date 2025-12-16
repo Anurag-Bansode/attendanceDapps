@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import session from "express-session"; 
 import { SESSION_SECRET, NODE_ENV } from "./config.js"; 
+import connectDB from "./utils/db.js";
 import { logger } from "./utils/logger.js"; 
 
 import checkinRoutes from "./routes/checkin.routes.js";
@@ -15,6 +16,9 @@ import healthcheck from "./routes/healthcheck.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Connect to MongoDB
+connectDB();
 
 const app = express();
 

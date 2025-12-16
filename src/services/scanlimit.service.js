@@ -1,19 +1,19 @@
-import { scanLimitStore } from "../stores/scanlimit.store.js";
+import ScanLimit from "../models/scanlimit.model.js";
 
 const MAX_SCANS_PER_SESSION = 2;
 
 export async function checkAndIncrement(sessionId, deviceId) {
-  // Since Redis stores simple values, we'll create a unique key for each session-device pair.
   const key = `${sessionId}:${deviceId}`;
   
-  // INCR is an atomic operation, perfect for rate limiting.
-  // It initializes to 1 if the key doesn't exist.
-  const count = await scanLimitStore.client.incr(scanLimitStore._getKey(key));
+  const result = await ScanLimit.findOneAndUpdate(
+    { key },
+    { $inc: { count: 1 }, $setOnInsert: { expiresAt: new Date() } },
+    { new: true, upsert: true } // upsert: create if it doesn't exist
+  ).lean();
 
-  if (count >= MAX_SCANS_PER_SESSION) {
-    // We can optionally set an expiry on the key so it doesn't live forever.
-    // For example, expire after 1 day.
-    await scanLimitStore.client.expire(scanLimitStore._getKey(key), 86400);
+  const count = result.count;
+
+  if (count > MAX_SCANS_PER_SESSION) {
     return false;
   }
 

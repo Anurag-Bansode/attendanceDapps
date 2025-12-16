@@ -1,26 +1,18 @@
-import nonceStore from "../stores/nonce.store.js";
-import sessionStore from "../stores/session.store.js";
+import Session from "../models/session.model.js";
 import { logger } from "./logger.js";
 
 export function startSchedulers() {
-  setInterval(async () => {
-    const now = Date.now();
-
-    for (const [nonce, data] of await nonceStore.entries()) {
-      if (data.expiresAt <= now) {
-        await nonceStore.delete(nonce);
-        logger.info("Nonce expired", { nonce });
-      }
-    }
-  }, 1000);
+  // The TTL index on the Nonce model handles nonce expiration automatically.
+  // No need for a nonce scheduler anymore.
 
   setInterval(async () => {
     const now = Date.now();
-    for (const [id, session] of await sessionStore.entries()) {
-      if (session.status === "ACTIVE" && now > session.endTime) {
-        await sessionStore.set(id, { ...session, status: "CLOSED" });
-        logger.info("Session closed", { sessionId: id });
-      }
+    const result = await Session.updateMany(
+      { status: "ACTIVE", endTime: { $lte: now } },
+      { $set: { status: "CLOSED" } }
+    );
+    if (result.modifiedCount > 0) {
+      logger.info(`Closed ${result.modifiedCount} expired session(s).`);
     }
   }, 5000);
 }
