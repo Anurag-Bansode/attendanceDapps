@@ -1,6 +1,6 @@
 import winston from 'winston';
 import path from 'path';
-import { LOG_DIR, ENV, ENABLE_LOGS } from '../config.js';
+import { LOG_DIR, NODE_ENV, ENABLE_LOGS } from '../config.js';
 
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, printf, colorize, json, errors } = format;
@@ -24,7 +24,7 @@ const logFormat = printf(({ level, message, timestamp, ...metadata }) => {
 const loggerTransports = [];
 
 // In development, we log to the console with colors for readability.
-if (ENV !== 'production') {
+if (NODE_ENV !== 'production') {
   loggerTransports.push(
     new transports.Console({
       format: combine(

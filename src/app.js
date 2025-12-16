@@ -1,7 +1,7 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import session from "express-session"; 
-import { PORT, SESSION_SECRET, ENV } from "./config.js"; 
+import { PORT, SESSION_SECRET, NODE_ENV } from "./config.js"; 
 import { logger } from "./utils/logger.js"; 
 
 import checkinRoutes from "./routes/checkin.routes.js";
